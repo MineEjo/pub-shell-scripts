@@ -1,0 +1,7 @@
+# bash gen_pubspec_dart.sh ./pubspec.yaml ./pubspec.dart
+
+name: package
+description: Hello world!
+
+dev_dependencies:
+  dep: ^1.2.3

@@ -2,6 +2,28 @@
 
 **Idea:** to implement a simple way to get data from `pubspec.yaml`, as simple as importing `package.json`
 
+### Example
+
+Let's take some of the data from the config as an example.
+
+```yaml
+name: package
+description: 
+
+dev_dependencies:
+  dep: ^1.2.3
+```
+
+After running the script, you will get a generated class with data.
+
+```dart
+/// Don't change this file or class, it's generated! Contains data from pubspec.yaml.
+/// * The usual fields are the name from the config and the [String] type.
+/// * Arrays and the like are maps with a [String] key and a [dynamic] value.
+/// * All keys try to have a [String] value, the exception is a key without a value, it will have a [bool] value.
+class PackagePubspec{static const String description='Hello world!';static const Map<String,dynamic> devDependencies={'dep':'^1.2.3',};}
+```
+
 ### Setup
 
 **Shell:**
