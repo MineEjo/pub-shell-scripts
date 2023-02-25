@@ -189,3 +189,5 @@ fi
 { echo -e "/// * Arrays and the like are maps with a [String] key and a [dynamic] value." >> "$OUTPUT"; } &> /dev/null
 { echo -e "/// * All keys try to have a [String] value, the exception is a key without a value, it will have a [bool] value." >> "$OUTPUT"; } &> /dev/null
 { echo -e $gen_code >> "$OUTPUT"; } &> /dev/null
+
+{ dart format "$OUTPUT"; } &> /dev/null
