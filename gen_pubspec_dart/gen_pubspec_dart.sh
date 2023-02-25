@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Copyright (c) MineEjo.
+#
+# This source code is licensed under the MIT license found in the
+# LICENSE file in the root directory of this source tree.
+
 # The script generates the Dart code for the sdk version: '>=2.17.6 <3.0.0'
 # The script is very fragile, be sure to follow YAML syntax.
 
