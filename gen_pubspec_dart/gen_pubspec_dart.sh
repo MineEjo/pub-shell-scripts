@@ -178,7 +178,7 @@ if [ $type == $TYPE_MAP_FIELD ]; then
   # Close the class.
 fi; gen_code+=$CLOSE
 
-if [[ ${#gen_code} > ${#INIT_CODE} ]]
+if [[ ${#gen_code} -gt ${#INIT_CODE} ]]
   then printf "$INFO_OUTPUT_GEN"; else printf "$WARN_OUTPUT_GEN"
 fi
 
