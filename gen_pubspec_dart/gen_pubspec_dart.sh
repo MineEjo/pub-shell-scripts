@@ -8,6 +8,9 @@
 # The script generates the Dart code for the sdk version: '>=2.17.6 <3.0.0'
 # The script is very fragile, be sure to follow YAML syntax.
 
+INPUT=$1
+OUTPUT=$2
+
 TAG_INFO="[INFO]"
 TAG_ERROR="[ERROR]"
 TAG_WARN="[WARN]"
@@ -17,9 +20,6 @@ COLOR_RED='\033[0;31m'
 COLOR_CYAN='\033[0;36m'
 COLOR_ORANGE='\033[0;33m'
 COLOR='\033[0m'
-
-INPUT=$1;
-OUTPUT=$2;
 
 POSTFIX="Pubspec"
 CLASS="class"
@@ -175,13 +175,11 @@ done < "$OUTPUT"
 if [ $type == $TYPE_MAP_FIELD ]; then
   # Close the last map.
   gen_code+=$CLOSE$END$NEXT
-fi
-
-gen_code+=$CLOSE # Close the class.
+  # Close the class.
+fi; gen_code+=$CLOSE
 
 if [[ ${#gen_code} > ${#INIT_CODE} ]]
-  then printf "$INFO_OUTPUT_GEN"
-  else printf "$WARN_OUTPUT_GEN" # Message Warn
+  then printf "$INFO_OUTPUT_GEN"; else printf "$WARN_OUTPUT_GEN"
 fi
 
 { echo -e "/// Don't change this file or class, it's generated! Contains data from pubspec.yaml." > "$OUTPUT"; } &> /dev/null
