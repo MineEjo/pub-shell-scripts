@@ -1,0 +1,33 @@
+## Testing dart code - `browser support`
+
+**Idea:** to Implement running tests in the browser.
+
+### Setup
+
+**Workflow:** `.github/workflows/test.yml`
+
+```yaml
+name: Testing dart code
+
+on:
+  pull_request:
+    paths:
+      - '**.dart'
+  push:
+    paths:
+      - '**.dart'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1.4
+      - name: Install dependencies
+        run: dart pub get
+      - name: Install Google Chrome
+        run: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      - name: Run unit tests
+        run: dart test -r github -p chrome
+```
