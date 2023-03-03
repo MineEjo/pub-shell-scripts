@@ -48,7 +48,7 @@ $ bash gen_pubspec_dart.sh ./pubspec.yaml ./lib/pubspec.dart
 ```
 
 **Workflow:** `.github/workflows/publish.yml`
-<br>Before publishing it will generate a file in package/lib - pubspeck.dart.
+<br>Before publishing it will generate a file in package/lib - pubspec.dart.
 <br>If you have questions about customized publishing, go to the [beginning of the repository](../README.md).
 
 ```yaml
