@@ -1,0 +1,39 @@
+## Automatic code formatting
+
+**Idea:** Implement automatic code formatting at push or pull request followed by commit push.
+
+### Setup
+
+**Workflow:** `.github/workflows/format.yml`
+
+```yaml
+name: Automatic code formatting
+
+on:
+  pull_request:
+    paths:
+      - '**.dart'
+  push:
+    paths:
+      - '**.dart'
+  workflow_dispatch:
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1.4
+      - run: dart format .
+      - name: Check for modified files
+        id: git-check
+        run: echo "modified=$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)" >> $GITHUB_OUTPUT
+      - name: Push changes
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          git config --global user.name 'Your name'
+          git config --global user.email 'your-name@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git commit -am "Automatic formatting fixes."
+          git push
+```
