@@ -1,3 +1,10 @@
+## List
+
+* [Generate pubspec.yaml in Dart code](./gen_pubspec_dart)
+* [Testing Dart code: browser support](./test_dart_code)
+* [Automatic code formatting](./format_dart_code)
+
+
 ## Introduction
 
 **Useful** ideas and concepts for [pub.dev](https://pub.dev/) or `pubspec` files implemented with shell scripts.
@@ -19,6 +26,7 @@ name: Publish to pub.dev
 on:
   push:
     tags:
+      # The tag format can be changed.
       - '[0-9]+.[0-9]+.[0-9]+*'
 
 jobs:
