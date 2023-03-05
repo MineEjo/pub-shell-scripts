@@ -9,14 +9,18 @@ Let's take some of the data from the config as an example.
 ```yaml
 name: package
 description: Hello world! # Example of no formatting and no commentary.
-dev_dependencies:
-  dep: ^1.2.3
+environment:
+  sdk: '>=2.17.6 <3.0.0'
 # Example of commentary and strange formatting.
 
 platforms:
   web:
 
 # Example commentary.
+
+dev_dependencies:
+  dep1: ^1.2.3
+  dep2: ^2.3.4
 ```
 
 After running the script, you will get a generated class with data.
@@ -28,13 +32,11 @@ After running the script, you will get a generated class with data.
 /// * All keys try to have a [String] value, the exception is a key without a value, it will have a [bool] value.
 class PackagePubspec {
   static const String description = 'Hello world!';
-
+  static const Map<String, dynamic> environment = {'sdk': '>=2.17.6 <3.0.0'};
+  static const Map<String, dynamic> platforms = {'web:': true};
   static const Map<String, dynamic> devDependencies = {
-    'dep': '^1.2.3',
-  };
-
-  static const Map<String, dynamic> platforms = {
-    'web:': true,
+    'dep1': '^1.2.3',
+    'dep2': '^2.3.4'
   };
 }
 ```

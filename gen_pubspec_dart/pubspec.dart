@@ -4,12 +4,10 @@
 /// * All keys try to have a [String] value, the exception is a key without a value, it will have a [bool] value.
 class PackagePubspec {
   static const String description = 'Hello world!';
-
+  static const Map<String, dynamic> environment = {'sdk': '>=2.17.6 <3.0.0'};
+  static const Map<String, dynamic> platforms = {'web:': true};
   static const Map<String, dynamic> devDependencies = {
-    'dep': '^1.2.3',
-  };
-
-  static const Map<String, dynamic> platforms = {
-    'web:': true,
+    'dep1': '^1.2.3',
+    'dep2': '^2.3.4'
   };
 }
