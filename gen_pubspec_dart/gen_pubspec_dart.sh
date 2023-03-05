@@ -27,7 +27,6 @@ SPACE=" "
 EQUALS="="
 OPEN="{"
 CLOSE="}"
-NEXT="\n"
 END=";"
 STRING="String$SPACE"
 MAP="Map<String,dynamic>$SPACE"
@@ -58,7 +57,7 @@ FIELD_INDENT="  "
 
 # By default it contains the default class name, if it is missing.
 # Contains ready-made Dart code - a class with metadata.
-gen_code="$CLASS$SPACE$POSTFIX$OPEN$NEXT"
+gen_code="$CLASS$SPACE$POSTFIX$OPEN"
 INIT_CODE=$gen_code$CLOSE
 
 # Messages.
@@ -139,7 +138,7 @@ while IFS= read -r line; do
     var_value=$(to_string "${line//?*$FIELD_SEP /}")
     # Correcting a string in a string.
     var_value=${var_value//$QUOTE$QUOTE/$QUOTE}
-    gen_code+="$STATIC$CONST$STRING$var_name$EQUALS$var_value$END$NEXT"
+    gen_code+="$STATIC$CONST$STRING$var_name$EQUALS$var_value$END"
     type=$TYPE_FIELD; continue
   fi
 
@@ -148,7 +147,7 @@ while IFS= read -r line; do
     # it is an array and create the beginning of the map for Dart code.
     var_trim=$(trim "$line")
     var_name=$(to_lower_camel_case "${var_trim//$FIELD_SEP/}")
-    gen_code+="$NEXT$STATIC$CONST$MAP$var_name$EQUALS$OPEN$NEXT"
+    gen_code+="$STATIC$CONST$MAP$var_name$EQUALS$OPEN"
     type=$TYPE_FIELD_MAP; continue
   fi
 
@@ -164,26 +163,29 @@ while IFS= read -r line; do
       var_value=${var_value//$QUOTE$QUOTE/$QUOTE}
     fi
 
-    gen_code+="$var_name$SEP$var_value$COMMA$NEXT"
+    gen_code+="$var_name$SEP$var_value$COMMA"
     type=$TYPE_MAP_FIELD; continue
   fi
 
   if [ $type == $TYPE_MAP_FIELD ]; then
     # Close a map.
-    gen_code+=$CLOSE$END$NEXT
+    gen_code+=$CLOSE$END
     type=$TYPE_END
   fi
 done < "$OUTPUT"
 
 if [ $type == $TYPE_MAP_FIELD ]; then
   # Close the last map.
-  gen_code+=$CLOSE$END$NEXT
+  gen_code+=$CLOSE$END
   # Close the class.
 fi; gen_code+=$CLOSE
 
 if [[ ${#gen_code} -gt ${#INIT_CODE} ]]
   then printf "$INFO_OUTPUT_GEN"; else printf "$WARN_OUTPUT_GEN"
 fi
+
+# A cosmetic change to remove the extra commas.
+gen_code=${gen_code//$COMMA$CLOSE$END/$CLOSE$END}
 
 { echo -e "/// Don't change this file or class, it's generated! Contains data from pubspec.yaml." > "$OUTPUT"; } &> /dev/null
 { echo -e "/// * The usual fields are the name from the config and the [String] type." >> "$OUTPUT"; } &> /dev/null
