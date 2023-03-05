@@ -89,8 +89,8 @@ if ! command -v printf &> /dev/null; then echo "$DEPENDENCY"; exit; fi
 
 # Formatting for further processing.
 while IFS= read -r line; do
-  # Continue, if this is a commentary.
-  if [[ $line =~ \#.* ]]; then continue;  fi
+  # If there is a comment in the line - remove.
+  if [[ $line =~ \#.* ]]; then line=${line//#.*/}; fi
 
   # Continue, if this is a empty.
   if [[ "$line" == "" ]]; then continue; fi
