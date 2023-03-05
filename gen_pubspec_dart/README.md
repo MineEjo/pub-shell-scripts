@@ -8,10 +8,15 @@ Let's take some of the data from the config as an example.
 
 ```yaml
 name: package
-description: 
-
+description: Hello world! # Example of no formatting and no commentary.
 dev_dependencies:
   dep: ^1.2.3
+# Example of commentary and strange formatting.
+
+platforms:
+  web:
+
+# Example commentary.
 ```
 
 After running the script, you will get a generated class with data.
@@ -22,9 +27,15 @@ After running the script, you will get a generated class with data.
 /// * Arrays and the like are maps with a [String] key and a [dynamic] value.
 /// * All keys try to have a [String] value, the exception is a key without a value, it will have a [bool] value.
 class PackagePubspec {
-  static const String description = 'Hello world!';
+  static const String description =
+      'Hello world! # Example of no formatting and no commentary.';
+
   static const Map<String, dynamic> devDependencies = {
     'dep': '^1.2.3',
+  };
+
+  static const Map<String, dynamic> platforms = {
+    'web:': true,
   };
 }
 ```
