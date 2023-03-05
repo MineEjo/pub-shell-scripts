@@ -30,11 +30,11 @@ class PackagePubspec {
   static const String description = 'Hello world!';
 
   static const Map<String, dynamic> devDependencies = {
-    ' dep': '^1.2.3',
+    'dep': '^1.2.3',
   };
 
   static const Map<String, dynamic> platforms = {
-    ' web:': true,
+    'web:': true,
   };
 }
 ```
