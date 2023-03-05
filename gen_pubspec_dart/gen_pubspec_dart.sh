@@ -47,7 +47,7 @@ function to_lower_camel_case() {
 }
 
 function trim() {
-  echo -e "$1" | sed -e 's/^[[:space:]]*//'
+  echo -e "$1" | sed -e 's/^[[:space:]]*//' | sed 's/ *$//'
 }
 
 # Pubspec.
