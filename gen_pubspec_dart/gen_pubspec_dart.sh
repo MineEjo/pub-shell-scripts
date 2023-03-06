@@ -21,7 +21,7 @@ COLOR_CYAN='\033[0;36m'
 COLOR_ORANGE='\033[0;33m'
 COLOR='\033[0m'
 
-POSTFIX="Pubspec"
+POSTFIX="PackageData"
 CLASS="class"
 SPACE=" "
 EQUALS="="
@@ -113,6 +113,9 @@ done < "$INPUT"
 [ "$(cat "$OUTPUT")" != "" ] && printf "$INFO_OUTPUT_FORMATTED"
 [ "$(cat "$OUTPUT")" == "" ] && printf "$ERROR_OUTPUT_FORMATTED" && exit
 
+name=""
+class_name=""
+
 # Imitation type, to determine the type
 # of the last string or what it is.
 TYPE_ANY=0
@@ -127,7 +130,9 @@ while IFS= read -r line; do
   if [[ $line =~ $FIELD_NAME\ [a-zA-Za] ]]; then
     # If the line is a name field, update the name of the class.
     line=${line//$FIELD_NAME /}
-    gen_code=${gen_code//$POSTFIX/${line^}$POSTFIX}
+    name=${line^}$POSTFIX
+    class_name=${line^}
+    gen_code=${gen_code//$POSTFIX/$name}
     type=$TYPE_CLASS; continue
   fi
 
@@ -187,10 +192,7 @@ fi
 # A cosmetic change to remove the extra commas.
 gen_code=${gen_code//$COMMA$CLOSE$END/$CLOSE$END}
 
-{ echo -e "/// Don't change this file or class, it's generated! Contains data from pubspec.yaml." > "$OUTPUT"; } &> /dev/null
-{ echo -e "/// * The usual fields are the name from the config and the [String] type." >> "$OUTPUT"; } &> /dev/null
-{ echo -e "/// * Arrays and the like are maps with a [String] key and a [dynamic] value." >> "$OUTPUT"; } &> /dev/null
-{ echo -e "/// * All keys try to have a [String] value, the exception is a key without a value, it will have a [bool] value." >> "$OUTPUT"; } &> /dev/null
+{ echo -e "/// $name is the generated $class_name package data from pubspec.yaml." > "$OUTPUT"; } &> /dev/null
 { echo -e $gen_code >> "$OUTPUT"; } &> /dev/null
 
 { dart format "$OUTPUT"; } &> /dev/null
