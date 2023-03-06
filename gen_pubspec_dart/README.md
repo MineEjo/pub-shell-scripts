@@ -7,7 +7,7 @@
 Let's take some of the data from the config as an example.
 
 ```yaml
-name: Foo
+name: foo
 description: Hello world! # Example of no formatting and no commentary.
 environment:
   sdk: '>=2.17.6 <3.0.0'
